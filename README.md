@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/28440032/README.md)
 # Empirical Regression Agent
 
 Empirical Regression Agent is a reproducible execution and audit framework for empirical regression projects. It scaffolds projects, proposes auditable empirical workflows, runs approved Stata-oriented analysis steps, validates logs and tables, and prepares handoff packages.
