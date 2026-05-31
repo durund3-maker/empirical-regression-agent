@@ -1,0 +1,92 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{adjustbox}
+\usepackage{caption}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\geometry{margin=1in}
+
+\captionsetup{font=small,labelfont=bf}
+
+\begin{document}
+\appendix
+\begin{center}
+{\Large \textbf{Appendix}}
+\end{center}
+\vspace{1em}
+\addcontentsline{toc}{section}{Appendix}
+
+% Appendix Table placeholder.
+% Replace the example tabular below only with audited official table evidence.
+% Do not include validation_cross_check_evidence unless explicitly requested as a validation appendix.
+% If empirical variables appear, include Appendix Table A: Variable Definitions before other appendix tables.
+% Displayed variable labels must use approved short presentation labels: one word by default and no more than two words.
+\begin{table}[!htbp]
+\centering
+\caption{Appendix Table A. Variable Definitions}
+\begin{threeparttable}
+\small
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{p{0.22\textwidth}p{0.52\textwidth}p{0.20\textwidth}}
+\toprule
+Variables & Definition & Data Source \\
+\midrule
+\multicolumn{3}{l}{\textbf{Dependent Variables}} \\
+Outcome & Outcome construct and proxy or construction summary. & Source dataset \\
+\\
+\multicolumn{3}{l}{\textbf{Independent Variables}} \\
+Treatment & Treatment, IV, or DID construct and proxy or construction summary. & Source dataset \\
+\\
+\multicolumn{3}{l}{\textbf{Mechanism Variables}} \\
+Mechanism & Mechanism-related construct and proxy or construction summary. & Source dataset \\
+\\
+\multicolumn{3}{l}{\textbf{Moderating Variables}} \\
+Moderator & Moderator construct and proxy or construction summary. & Source dataset \\
+\\
+\multicolumn{3}{l}{\textbf{Controls}} \\
+Control & Control construct and proxy or construction summary. & Source dataset \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\begin{tablenotes}
+\footnotesize
+\item \textit{Note:} This table presents variable definitions for all short labels used in the Appendix bundle. IV variables and DID terms are listed under Independent Variables. Construction details must match the approved variable dictionary, source scripts, and construction logs.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{Appendix Table B. Appendix Table Title}
+\begin{threeparttable}
+\small
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lc}
+\toprule
+Variable & Value \\
+\midrule
+Example row & -- \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\begin{tablenotes}
+\footnotesize
+\item \textit{Note:} This table reports audited empirical output. Standard errors, fixed effects, controls, clustering, and significance conventions must match the audited source table and logs.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+% Appendix Figure placeholder.
+% Include only audited official figures with source scripts/logs and required notes.
+% \begin{figure}[!htbp]
+% \centering
+% \includegraphics[width=\textwidth]{official_figure_path}
+% \caption{Appendix Figure Title}
+% \begin{minipage}{0.92\textwidth}
+% \footnotesize \textit{Note:} This figure shows audited empirical output, including the relevant axes, groups, intervals, unit, and evidence boundary.
+% \end{minipage}
+% \end{figure}
+
+\end{document}

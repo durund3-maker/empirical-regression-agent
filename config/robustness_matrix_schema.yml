@@ -1,0 +1,82 @@
+schema_name: robustness_matrix
+schema_version: 3
+description: >
+  Matrix-dimension schema for approved robustness checks. The matrix declares
+  candidate dimensions, and only approved selected_cells may execute. This
+  schema replaces the older row-level check list as the primary interface.
+
+required_fields:
+  matrix_status:
+    type: enum
+    allowed_values:
+      - draft
+      - proposed
+      - approved
+      - rejected
+      - superseded
+      - needs_author_input
+  approval_reference:
+    type: string
+    description: Researcher decision approving the matrix or marking it pending.
+  linked_baseline_spec_id:
+    type: string
+    description: Baseline specification that all selected cells deviate from.
+  dimensions:
+    type: map
+    fields:
+      estimators: list
+      controls: map
+      samples: map
+      outcomes: list
+    description: >
+      Candidate robustness dimensions. A complete Cartesian product may be
+      listed for planning, but it is not approval to execute every cell.
+  selected_cells:
+    type: list
+    item_schema:
+      cell_id: string
+      linked_baseline_spec_id: string
+      estimator: string
+      controls_key: string
+      sample_key: string
+      outcome: string
+      change_from_baseline: string
+      approval_status: enum(draft, proposed, approved, rejected, superseded, needs_author_input)
+      approval_reference: string
+      source_do_file: string
+      output_json: string
+      expected_table_or_figure: string
+      expected_risk_level: enum(P0_if_unapproved, P1_substantive_caution, P2_format_only)
+  failure_handling:
+    type: map
+    fields:
+      failed_output_policy: string
+      rerun_policy: string
+  reporting_rules:
+    type: map
+    fields:
+      summary_table: string
+      anomaly_report: string
+      evidence_class: string
+
+optional_fields:
+  legacy_checks:
+    type: list
+    description: >
+      Compatibility-only row-level checks from older projects. New projects
+      should use dimensions and selected_cells.
+  notes:
+    type: list
+
+validation_rules:
+  - matrix_status must be approved before robustness execution.
+  - linked_baseline_spec_id must exist in regression_specs.
+  - Every selected cell must reference one estimator, one controls key, one sample key, and one outcome from dimensions.
+  - Every selected cell must have approval_status approved before execution.
+  - Unselected Cartesian-product cells are planning candidates only and must not execute.
+  - Any change to sample, controls, fixed effects, clustering, weights, estimator, outcome, or outlier handling requires approval_reference.
+  - Estimator-agent must write per-cell intermediate JSON before reviewer-agent summarizes results.
+  - Reviewer-agent must read JSON and generated outputs read-only and produce robustness anomalies rather than editing results.
+  - The target robustness summary table is output/tables/tab_robustness.tex.
+  - Anomalies, failed cells, sample-size surprises, inconsistent stars, or standard-error format issues must be listed in review/robustness_anomalies.md.
+  - Failed or skipped robustness checks must be recorded rather than omitted.

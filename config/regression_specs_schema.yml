@@ -1,0 +1,104 @@
+schema_name: regression_specs
+schema_version: 2
+description: >
+  Generic registry for executable regression specifications. Each record should
+  correspond to one auditable model or model family column.
+
+required_fields:
+  spec_id:
+    type: string
+    description: Stable model identifier used in logs, tables, and audit records.
+  family:
+    type: enum
+    allowed_values:
+      - descriptive
+      - baseline
+      - event_study
+      - dynamic_effect
+      - robustness
+      - heterogeneity
+      - mechanism_related
+      - placebo
+      - appendix
+  approval_status:
+    type: enum
+    allowed_values:
+      - draft
+      - proposed
+      - approved
+      - rejected
+      - superseded
+      - needs_author_input
+  approval_reference:
+    type: string
+    description: Author note, issue, email, or config entry confirming the spec.
+  dependent_variable:
+    type: string
+    description: Variable name as defined in the variable map.
+  treatment_or_key_variable:
+    type: string
+    description: Main explanatory variable as defined in the variable map.
+  controls:
+    type: list
+    description: Explicit controls. Use an empty list only when approved.
+  fixed_effects:
+    type: list
+    description: Explicit FE list. Do not infer from prior runs.
+  clustering:
+    type: list
+    description: Explicit clustering level or levels.
+  sample_filter:
+    type: string
+    description: Approved sample condition or named sample flag.
+  estimator:
+    type: string
+    description: Stata command or estimator family.
+  source_do_file:
+    type: string
+  expected_outputs:
+    type: list
+  audit_priority:
+    type: enum
+    allowed_values:
+      - core
+      - supporting
+      - appendix
+
+optional_fields:
+  weights:
+    type: string
+  event_study:
+    type: map
+    fields:
+      event_time_variable: string
+      window_start: string
+      window_end: string
+      omitted_period: string
+      binning_rule: string
+      approval_reference: string
+  subgroup_definition:
+    type: string
+  mechanism_related_variable:
+    type: string
+  linked_baseline_spec_id:
+    type: string
+  table_column_label:
+    type: string
+  figure_series_label:
+    type: string
+  expected_sample_change_note:
+    type: string
+  notes:
+    type: list
+
+validation_rules:
+  - approval_status must be approved before execution.
+  - Every variable must appear in the project variable map before execution.
+  - controls, fixed_effects, clustering, sample_filter, estimator, and weights must not be changed without a new approval_reference.
+  - baseline specs marked core are P0-blocked until approved.
+  - event_study and dynamic_effect specs require event window and omitted period.
+  - heterogeneity specs require subgroup_definition.
+  - mechanism_related specs require mechanism_related_variable and must not be labeled as confirmed mechanisms.
+  - source_do_file must be executable or explicitly marked draft.
+  - expected_outputs must use stable file names.
+  - A result is valid only after matching logs, outputs, and audit records exist.

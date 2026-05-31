@@ -1,0 +1,108 @@
+schema_name: table_output
+schema_version: 2
+description: >
+  Generic schema for exported empirical tables and table inventories.
+
+required_fields:
+  table_id:
+    type: string
+  table_title:
+    type: string
+  output_path:
+    type: string
+  source_do_files:
+    type: list
+  source_logs:
+    type: list
+  linked_spec_ids:
+    type: list
+  output_format:
+    type: enum
+    allowed_values:
+      - rtf
+      - tex
+      - xlsx
+      - csv
+      - html
+      - txt
+  generated_at:
+    type: string
+  numerical_source:
+    type: enum
+    allowed_values:
+      - stata_export
+      - approved_executable_export
+      - audit_inventory_only
+  notes_required_fields:
+    type: map
+    fields:
+      variable_meanings: boolean
+      proxy_language: boolean
+      fixed_effects: boolean
+      clustering: boolean
+      controls: boolean
+      sample: boolean
+      stars: boolean
+      weights: boolean
+  audit_status:
+    type: enum
+    allowed_values:
+      - not_started
+      - pending_evidence
+      - passed
+      - failed
+      - blocked
+      - needs_author_input
+
+optional_fields:
+  column_spec_map:
+    type: list
+    item_schema:
+      column_id: string
+      spec_id: string
+      model_label: string
+  style:
+    type: map
+    fields:
+      three_line_table_preferred: boolean
+      decimal_places: string
+      star_rule: string
+      standard_error_format: string
+  notes:
+    type: list
+  variable_display_labels:
+    type: list
+    item_schema:
+      raw_variable: string
+      presentation_label: string
+      appendix_module: string
+      appendix_table_a_included: boolean
+  appendix_table_a:
+    type: map
+    fields:
+      required: boolean
+      output_path: string
+      columns: list
+      module_order: list
+      covers_displayed_variables: boolean
+      iv_and_did_under_independent_variables: boolean
+      audit_status: string
+  known_limitations:
+    type: list
+  formatting_source_file:
+    type: string
+  final_order_index:
+    type: integer
+
+validation_rules:
+  - Each table must link to at least one source do file and one log.
+  - Column models must be traceable to linked spec ids.
+  - numerical_source must not be manual_entry.
+  - Table notes must identify FE, clustering, controls, sample, and stars.
+  - Table notes must explain what dependent and key explanatory variables represent, including proxy language where applicable.
+  - Final display labels for variables must be one word by default and no more than two words.
+  - Consolidated Tables and Figures plus Appendix bundles must include Appendix Table A with columns Variables, Definition, and Data Source.
+  - Appendix Table A must use module order Dependent Variables, Independent Variables, Mechanism Variables, Moderating Variables, Controls, and IV/DID terms must be under Independent Variables.
+  - Titles and column labels must match actual specs.
+  - Empty statistic rows must not remain unless explicitly documented.
+  - No table interpretation may be stored as verified evidence unless backed by outputs and passed audit.

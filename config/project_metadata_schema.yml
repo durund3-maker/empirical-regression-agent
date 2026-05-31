@@ -1,0 +1,97 @@
+schema_name: project_metadata
+schema_version: 2
+description: >
+  Generic metadata required before empirical execution starts. This schema is
+  a fillable guide, not a strict machine validator.
+
+required_fields:
+  project_id:
+    type: string
+    description: Stable project identifier. Must not encode confidential content unless approved.
+  project_title:
+    type: string
+    description: Researcher-provided project title or short working title.
+  owner:
+    type: string
+    description: Responsible researcher or team.
+  project_stage:
+    type: enum
+    allowed_values:
+      - intake
+      - data_audit
+      - cleaning_proposal
+      - variable_construction
+      - regression_execution
+      - audit
+      - handoff
+      - replay_validation
+  agent_boundary:
+    type: map
+    fields:
+      is_empirical_regression_agent: boolean
+      not_manuscript_writing_agent: boolean
+      paper_agent_handoff_requires_approval: boolean
+  data_sources:
+    type: list
+    item_schema:
+      source_id: string
+      path: string
+      format: string
+      raw_or_derived: enum(raw, derived, external_reference, author_note)
+      read_only_required: boolean
+      provenance_note: string
+      confidentiality_level: string
+      dictionary_path: string
+      expected_key_fields: list
+      status: enum(available, missing, needs_author_input, unavailable_by_design)
+  software:
+    type: map
+    fields:
+      stata_version: string
+      required_packages: list
+      operating_system: string
+      other_tools: list
+  author_notes:
+    type: list
+    item_schema:
+      note_id: string
+      note_path_or_text: string
+      decision_type: enum(scope, data, sample, variable, merge, spec, output, handoff, other)
+      status: enum(active, superseded, needs_confirmation)
+  output_scope:
+    type: map
+    fields:
+      expected_tables: list
+      expected_figures: list
+      expected_logs: list
+      expected_handoff: boolean
+
+optional_fields:
+  confidentiality_rules:
+    type: list
+  reproduction_constraints:
+    type: list
+  project_globals:
+    type: map
+    description: Planned project path globals for scripts.
+  raw_data_protection:
+    type: map
+    fields:
+      raw_data_directory: string
+      modification_forbidden: boolean
+      checksum_manifest: string
+  human_checkpoints:
+    type: list
+    item_schema:
+      checkpoint_id: string
+      checkpoint_type: string
+      status: enum(pending, approved, rejected, superseded)
+      approval_reference: string
+
+validation_rules:
+  - data_sources must not be empty.
+  - raw data entries must set read_only_required to true.
+  - paths must point to documented project inputs or controlled derived outputs.
+  - author_notes may document decisions but must not replace executable evidence.
+  - handoff to empirical-paper-agent requires an approved human checkpoint.
+  - missing required inputs must be marked needs_author_input or unavailable_by_design.

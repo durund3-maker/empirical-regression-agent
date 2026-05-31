@@ -1,0 +1,47 @@
+robustness_matrix:
+  matrix_status: "<draft|proposed|approved|rejected|superseded|needs_author_input>"
+  approval_reference: "<approval_reference>"
+  linked_baseline_spec_id: "<linked_baseline_spec_id>"
+
+  dimensions:
+    estimators:
+      - "<twfe|csdid|sdid|other_estimator>"
+    controls:
+      none: []
+      baseline:
+        - "<baseline_control>"
+      extended:
+        - "<baseline_control>"
+        - "<extended_control>"
+    samples:
+      full: "<approved_full_sample_condition>"
+      alternative: "<approved_alternative_sample_condition>"
+    outcomes:
+      - "<primary_outcome>"
+      - "<alternative_outcome>"
+
+  selected_cells:
+    - cell_id: "<robustness_cell_id>"
+      linked_baseline_spec_id: "<linked_baseline_spec_id>"
+      estimator: "<estimator_key>"
+      controls_key: "<controls_key>"
+      sample_key: "<sample_key>"
+      outcome: "<outcome_variable>"
+      change_from_baseline: "<exact_deviation_from_baseline>"
+      approval_status: "<draft|proposed|approved|rejected|superseded|needs_author_input>"
+      approval_reference: "<approval_reference>"
+      source_do_file: "code/stata_robustness.do"
+      output_json: "output/intermediate/<robustness_cell_id>.json"
+      expected_table_or_figure: "output/tables/tab_robustness.tex"
+      expected_risk_level: "<P0_if_unapproved|P1_substantive_caution|P2_format_only>"
+
+  failure_handling:
+    failed_output_policy: "Record in failed_regressions.md; do not export as successful evidence."
+    rerun_policy: "<approved_rerun_policy>"
+
+  reporting_rules:
+    summary_table: "output/tables/tab_robustness.tex"
+    anomaly_report: "review/robustness_anomalies.md"
+    evidence_class: "author_decision"
+
+  legacy_checks: []

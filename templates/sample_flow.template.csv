@@ -1,0 +1,2 @@
+step_id,description,input_n,output_n,change_n,approved_rule_reference,source_do_file,source_log,audit_status,evidence_class,notes
+<step_id>,<approved_sample_step>,<input_n_placeholder>,<output_n_placeholder>,<change_n_placeholder>,<approval_reference>,<do_file_path>,<log_path>,<not_started|pending_evidence|passed|failed|blocked|needs_author_input>,verified_evidence,<notes>

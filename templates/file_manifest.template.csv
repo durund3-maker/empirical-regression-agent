@@ -1,0 +1,2 @@
+file_id,file_path,file_type,owner_stage,created_by,source_reference,linked_spec_ids,linked_table_ids,audit_status,evidence_class,risk_level,notes
+<file_id>,<file_path>,<config|do|log|table|figure|report|data_dictionary>,<dataprep|estimator|table|reviewer|handoff>,<agent_or_researcher>,<source_reference>,<spec_id>,<table_id>,<not_started|passed|failed|blocked|needs_author_input|superseded>,<verified_evidence|author_decision|agent_inference|open_risk|unverified_claim>,<P0|P1|P2|none>,<notes>

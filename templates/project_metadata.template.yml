@@ -1,0 +1,86 @@
+project_name: "<project_name>"
+project_id: "<project_id>"
+project_title: "<project_title>"
+paper_title: "<paper_title>"
+owner: "<owner>"
+project_stage: "<intake|data_audit|cleaning_proposal|variable_construction|regression_execution|audit|handoff|replay_validation>"
+agent_boundary:
+  is_empirical_regression_agent: true
+  not_manuscript_writing_agent: true
+  paper_agent_handoff_requires_approval: true
+unit_of_observation: "<unit_of_observation>"
+sample_period:
+  start: "<sample_start>"
+  end: "<sample_end>"
+data_sources:
+  - source_id: "<source_id>"
+    source_name: "<source_name>"
+    path: "<source_path>"
+    format: "<source_format>"
+    raw_or_derived: "<raw|derived|external_reference|author_note>"
+    read_only_required: "<true|false>"
+    provenance_note: "<provenance_note>"
+    confidentiality_level: "<confidentiality_level>"
+    dictionary_path: "<dictionary_path>"
+    expected_key_fields:
+      - "<key_id>"
+    status: "<available|missing|needs_author_input|unavailable_by_design>"
+    evidence_class: "author_decision"
+raw_data_paths:
+  - "<raw_data_path_read_only>"
+processed_data_paths:
+  - "<processed_data_path>"
+key_ids:
+  - "<key_id>"
+time_variable: "<time_variable>"
+outcome_variables:
+  - "<outcome_var>"
+treatment_variables:
+  - "<treatment_var>"
+control_variables:
+  - "<approved_controls>"
+fixed_effects:
+  - "<approved_fixed_effects>"
+cluster_level: "<approved_cluster>"
+estimator_family: "<estimator_family>"
+software:
+  stata_version: "<stata_version>"
+  required_packages:
+    - "<approved_package_dependencies>"
+  operating_system: "<operating_system>"
+  other_tools:
+    - "<approved_other_tool>"
+author_notes:
+  - note_id: "<author_note_id>"
+    note_path_or_text: "<author_note_or_config_reference>"
+    decision_type: "<scope|data|sample|variable|merge|spec|output|handoff|other>"
+    status: "<active|superseded|needs_confirmation>"
+output_scope:
+  expected_tables:
+    - "<table_path>"
+  expected_figures:
+    - "<figure_path>"
+  expected_logs:
+    - "<log_path>"
+  expected_handoff: "<true|false>"
+author_confirmed_design:
+  status: "<confirmed|blocked|pending>"
+  confirmation_reference: "<author_note_or_config_reference>"
+forbidden_changes:
+  - "Do not modify raw data."
+  - "Do not change sample, controls, fixed effects, clustering, estimator, or variable formulas without researcher confirmation."
+  - "Do not invent variables, coefficients, standard errors, p-values, stars, sample sizes, or interpretations."
+HITL_status:
+  sample_rules: "<confirmed|blocked|pending>"
+  merge_keys: "<confirmed|blocked|pending>"
+  variable_formulas: "<confirmed|blocked|pending>"
+  regression_specs: "<confirmed|blocked|pending>"
+  final_table_order: "<confirmed|blocked|pending>"
+P0_status:
+  status: "<open|none|resolved>"
+  notes: "<P0_status_notes>"
+human_checkpoints:
+  - checkpoint_id: "<checkpoint_id>"
+    checkpoint_type: "<sample|merge|variable|spec|output|handoff>"
+    status: "<pending|approved|rejected|superseded>"
+    approval_reference: "<approval_reference>"

@@ -1,0 +1,37 @@
+regression_specs:
+  - spec_id: "<spec_id>"
+    family: "<descriptive|baseline|event_study|dynamic_effect|robustness|heterogeneity|mechanism_related|placebo|appendix>"
+    purpose: "<baseline|event_study|robustness|heterogeneity|mechanism_related|descriptive>"
+    approval_reference: "<approval_reference>"
+    outcome: "<outcome_var>"
+    dependent_variable: "<outcome_var>"
+    treatment: "<treatment_var>"
+    treatment_or_key_variable: "<treatment_var>"
+    interaction_terms:
+      - "<interaction_terms>"
+    controls:
+      - "<approved_controls>"
+    fixed_effects:
+      - "<approved_fixed_effects>"
+    cluster: "<approved_cluster>"
+    clustering:
+      - "<approved_cluster>"
+    sample_condition: "<approved_sample_condition>"
+    sample_filter: "<approved_sample_condition>"
+    estimator: "<approved_estimator>"
+    command_family: "<command_family>"
+    expected_table: "<table_path>"
+    expected_log: "<log_path>"
+    source_do_file: "<do_file_path>"
+    expected_outputs:
+      - "<table_path>"
+      - "<log_path>"
+    audit_priority: "<core|supporting|appendix>"
+    linked_baseline_spec_id: "<linked_baseline_spec_id>"
+    table_column_label: "<table_column_label>"
+    figure_series_label: "<figure_series_label>"
+    human_confirmed: "<true|false>"
+    approval_status: "<draft|proposed|approved|rejected|superseded|needs_author_input>"
+    evidence_class: "author_decision"
+    notes:
+      - "Do not execute unless approval_status is approved and approval_reference is documented."

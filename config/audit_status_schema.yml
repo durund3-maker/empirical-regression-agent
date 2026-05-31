@@ -1,0 +1,88 @@
+schema_name: audit_status
+schema_version: 2
+description: >
+  Generic audit status record for empirical artifacts and claims.
+
+required_fields:
+  audit_id:
+    type: string
+  target_artifact:
+    type: string
+  artifact_type:
+    type: enum
+    allowed_values:
+      - raw_data
+      - derived_data
+      - do_file
+      - log
+      - table
+      - figure
+      - variable_map
+      - sample_flow
+      - regression_spec
+      - robustness_matrix
+      - manifest
+      - author_note
+      - handoff_package
+  status:
+    type: enum
+    allowed_values:
+      - not_started
+      - passed
+      - failed
+      - blocked
+      - needs_author_input
+      - superseded
+  evidence_class:
+    type: enum
+    allowed_values:
+      - verified_evidence
+      - author_decision
+      - agent_inference
+      - open_risk
+      - unverified_claim
+  risk_level:
+    type: enum
+    allowed_values:
+      - P0
+      - P1
+      - P2
+      - none
+  evidence_files:
+    type: list
+  checks_performed:
+    type: list
+  findings:
+    type: list
+  auditor:
+    type: string
+  audited_at:
+    type: string
+
+optional_fields:
+  linked_spec_ids:
+    type: list
+  linked_table_ids:
+    type: list
+  linked_figure_ids:
+    type: list
+  blocker_reason:
+    type: string
+  remediation_steps:
+    type: list
+  author_input_needed:
+    type: string
+  superseded_by:
+    type: string
+  notes:
+    type: list
+
+validation_rules:
+  - passed status requires non-empty evidence_files and checks_performed.
+  - passed status for empirical outputs requires evidence_class verified_evidence.
+  - author_decision records require an approval reference in evidence_files or notes.
+  - agent_inference cannot be treated as passed empirical evidence.
+  - unverified_claim cannot support final outputs.
+  - failed or blocked status requires a concrete finding or blocker_reason.
+  - needs_author_input must specify the missing input.
+  - Any P0 record blocks handoff until resolved or superseded by a passed audit record.

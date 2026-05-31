@@ -1,0 +1,2 @@
+variable_name,presentation_label,role,definition,data_source,source_fields,construction_script,construction_log,audit_status,evidence_class,notes
+example_var,Example,control,Construct definition with proxy limits,main_data,Q1,code/stata_variable_construction.do,output/logs/stata_variable_construction.log,passed,verified_evidence,derived only from executed_variable_dictionary.csv

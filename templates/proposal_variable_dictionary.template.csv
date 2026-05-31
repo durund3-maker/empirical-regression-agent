@@ -1,0 +1,2 @@
+variable_name,source_fields,question_number,question_type,proposed_role,proposed_formula,coding_direction,missing_rule,multi_select_semantics,index_eligible,approval_status,evidence_class,notes
+example_var,Q1,Q1,single_choice,control,proposal_formula,needs_author_input,needs_author_input,not_applicable,NO,pending,proposal,proposal rows cannot enter handoff

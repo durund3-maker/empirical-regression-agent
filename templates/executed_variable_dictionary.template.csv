@@ -1,0 +1,2 @@
+variable_name,source_fields,question_number,question_type,executed_role,executed_formula,coding_direction,missing_rule,multi_select_semantics,index_eligible,construction_script,construction_log,validation_output,approval_status,audit_status,evidence_class,notes
+example_var,Q1,Q1,single_choice,control,approved_formula,confirmed,confirmed,not_applicable,NO,code/stata_variable_construction.do,output/logs/stata_variable_construction.log,review/variable_construction_audit.md,approved,passed,verified_evidence,executed rows only
